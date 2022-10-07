@@ -9,4 +9,6 @@ También se puede encontrar una parte de TypeScript,React Native. Incluso en las
 
 ---
 [Part-0](https://github.com/ftvalex01/FullStackOpen/tree/main/Part0)
+[Part-1](https://github.com/ftvalex01/FullStackOpen/tree/main/Part1)
+[Part-2](https://github.com/ftvalex01/FullStackOpen/tree/main/Part2)
 

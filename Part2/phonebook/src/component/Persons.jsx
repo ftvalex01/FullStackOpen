@@ -1,11 +1,21 @@
 import React from 'react'
 
-export const Persons = ({persons}) => {
+
+export const Persons = ({person,handleClickDelete}) => {
+
   return (
-    <ul>
-        {persons.map((element) => {
-          return <li key={element.id}>{element.name} {element.phone}</li>;
-        })}
-      </ul>
+    <>
+     <tr>
+      <td key={person.name}>
+        {person.name}
+      </td>
+      <td key={person.number}>
+        {person.number}
+      </td>
+      <td key={person.id}>
+        <button onClick={()=>handleClickDelete(person.id)}>delete</button>
+      </td>
+      </tr>
+      </>
   )
 }

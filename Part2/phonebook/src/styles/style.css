@@ -1,0 +1,19 @@
+.good{
+color: green;
+background: lightgrey;
+font-size: 20;
+border-style: solid;
+border-radius: 8;
+padding: 12;
+margin-bottom: 20
+}
+
+.bad{
+    color:red;
+    background-color: lightgray;
+    font-size: 20;
+    border-style: solid;
+    border-radius: 8;
+    padding: 12;
+    margin-bottom: 20
+}

@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
 
 app.use(express.json())
+
+
 
 let persons =[
     {id:1,name:"Arto Hellas",number:"040-123456"},
@@ -9,6 +12,20 @@ let persons =[
     {id:3,name:"Dan Abramov",number:"12-43-234345"},
     {id:4,name:"Mary Poppendic",number:"39-23-6423122"}
 ]
+
+/* morgan('tiny')
+morgan(':method :url :status :res[content-lenth] - :response-time ms') */
+app.use(morgan((tokens,req,res)=>{
+    return[
+        tokens.method(req,res),
+        tokens.url(req,res),
+        tokens.status(req,res),
+        tokens.res(req,res,'content-length'), '-',
+        tokens['response-time'](req,res),'ms',
+        JSON.stringify(req.body)
+    ].join(' ')
+}))
+/* morgan.token('body',function(req,res){return req.headers['content-type']}) */
 
 app.get('/',(request,response)=>{
     response.send('<h1>Hello world</h1>')

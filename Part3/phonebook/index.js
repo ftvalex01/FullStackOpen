@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 app.use(cors())
+app.use(express.static('build'))
 app.use(express.json())
 
 
@@ -29,8 +30,15 @@ app.use(morgan((tokens,req,res)=>{
 }))
 /* morgan.token('body',function(req,res){return req.headers['content-type']}) */
 
+
+
+
 app.get('/',(request,response)=>{
     response.send('<h1>Hello world</h1>')
+})
+
+app.get('/api/persons',(request,response)=>{
+    response.json(persons)
 })
 
 app.get('/info',(request,response)=>{

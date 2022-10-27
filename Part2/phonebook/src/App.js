@@ -84,8 +84,7 @@ const App = () => {
           }, 6000);
         })
         .catch((error) => {
-          console.log(error);
-          setMsg(`An unexpected error happened.`);
+          setMsg(`${error.response.data.error}`);
           setTimeout(() => {
             setMsg(null);
           }, 6000);

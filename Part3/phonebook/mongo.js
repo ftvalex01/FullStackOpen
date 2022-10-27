@@ -16,30 +16,30 @@ const personSchema = new mongoose.Schema({
   number: String,
 })
 
-const Person = mongoose.model("Person",personSchema)
+const Person = mongoose.model('Person',personSchema)
 
 mongoose
   .connect(url)
-  if(process.argv.length > 4){
-    const person = new Person({
-      name: process.argv[3],
-      number: process.argv[4],
-    })
+if(process.argv.length > 4){
+  const person = new Person({
+    name: process.argv[3],
+    number: process.argv[4],
+  })
 
   person.save()
-  .then(()=>{
-    console.log(`añadido ${person.name} number:${person.number} to phonebook`);
-    mongoose.connection.close()
-  })
-  .catch((error)=>console.log(error))
-  }else{
-    console.log("Phonebook:");
-    Person.find({})
-    .then((persons)=>{
-      persons.map((person)=>{
+    .then(() => {
+      console.log(`añadido ${person.name} number:${person.number} to phonebook`)
+      mongoose.connection.close()
+    })
+    .catch((error) => console.log(error))
+}else{
+  console.log('Phonebook:')
+  Person.find({})
+    .then((persons) => {
+      persons.map((person) => {
         console.log(person.name,person.number)
       })
       mongoose.connection.close()
     })
-    .catch((error)=>console.log(error))
-  }
+    .catch((error) => console.log(error))
+}

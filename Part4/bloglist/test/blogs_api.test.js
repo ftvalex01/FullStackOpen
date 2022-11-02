@@ -82,5 +82,32 @@ describe('blog information', () => {
 
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
   })
+  test('delete blog from DB', async() => {
+    const blogsDB = await helper.blogsInDb()
+    const blogToDelete = blogsDB[0]
+
+    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204)
+
+    const bloginDb = await helper.blogsInDb()
+    expect(bloginDb).toHaveLength(helper.initialBlogs.length - 1)
+
+    const contents = bloginDb.map(r => r.title)
+
+    expect(contents).not.toContain(blogToDelete.title)
+  })
+  test('updating blog from db', async() => {
+    const blogsDB = await helper.blogsInDb()
+    const blogToUpdate = blogsDB[0]
+    const updatedData = {
+      likes: 40,
+    }
+    const newEntryblogupdated =
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(updatedData)
+      .expect(200)
+
+    expect(newEntryblogupdated.body.likes).toBe(updatedData.likes)
+  })
 })
 afterAll(() => mongoose.connection.close())

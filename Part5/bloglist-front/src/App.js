@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
-import Blog from "./components/Blog";
+
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import "./styles.css";
 
+import { Bloglist } from "./components/Bloglist";
+
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+  
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-
+  
   useEffect(() => {
     blogService.getAll().then((initialBlog) => {
       setBlogs(initialBlog);
@@ -53,31 +53,7 @@ const App = () => {
       }, 5000);
     }
   };
-  const addBlog = (event) => {
-    event.preventDefault();
-    const blogObject = {
-      title,
-      author,
-      url,
-    };
-
-    try {
-      blogService.create(blogObject).then((returnedBlog) => {
-        setBlogs(blogs.concat(returnedBlog));
-      });
-      setSuccessMessage(
-        `New blog created: ${blogObject.title} by ${blogObject.author}`
-      );
-      setTimeout(() => {
-        setSuccessMessage(null);
-      }, 5000);
-    } catch (exception) {
-      setErrorMessage("Could not create a new blog entry");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-    }
-  };
+ 
 
   if (user === null) {
     return (
@@ -123,41 +99,11 @@ const App = () => {
         {user.name} is logged in<button onClick={() => logout()}>logout</button>
       </p>
       <h2>blogs</h2>
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
-      <h2>Create New Blog</h2>
-      <form onSubmit={addBlog}>
-        <div>
-          Title:
-          <input
-            type="text"
-            value={title}
-            name="Title"
-            onChange={({ target }) => setTitle(target.value)}
-          />
+    
+
+      <Bloglist></Bloglist>
         </div>
-        <div>
-          Author:
-          <input
-            type="text"
-            value={author}
-            name="Author"
-            onChange={({ target }) => setAuthor(target.value)}
-          />
-        </div>
-        <div>
-          Url:
-          <input
-            type="text"
-            value={url}
-            name="Url"
-            onChange={({ target }) => setUrl(target.value)}
-          />
-        </div>
-        <button type="submit">Create Blog</button>
-      </form>
-    </div>
+        
   );
 };
 

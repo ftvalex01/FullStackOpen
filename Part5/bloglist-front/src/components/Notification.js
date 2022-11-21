@@ -1,20 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-
-const Notification = ({ message , type}) => {
-    if (!message) {
-      return null
-    }
-  
-    if (type === 'error') {
-      return (
-        <div className="error">{message}</div>
-      )
-    } else {
-      return (
-        <div className="success">{message}</div>
-      )
-    }
+const Notification = ({ notification }) => {
+  const { message,type } = notification
+  if (!message) {
+    return null
   }
 
-  export default Notification
+  return <div className={type}>{message}</div>
+}
+Notification.propTypes = {
+  notification: PropTypes.object.isRequired
+}
+export default Notification

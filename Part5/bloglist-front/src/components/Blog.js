@@ -10,14 +10,14 @@ const BlogDetails = ({ blog, addLike,user,deleteBlog }) => {
       <p>{blog.url}</p>
       <p className='likes'>
         {blog.likes} {blog.likes === 1 ? 'like' : 'likes'}
-        <button onClick={addLike}>Add</button>
+        <button className='like' onClick={addLike}>Add</button>
       </p>
       <p>{blog.user.name}</p>
       {isOwnedByUser && <DeleteButton deleteBlog={deleteBlog} />}
     </div>
   )
 }
-const DeleteButton = ({ deleteBlog }) => <button onClick={deleteBlog}>delete</button>
+const DeleteButton = ({ deleteBlog }) => <button className='remove' onClick={deleteBlog}>delete</button>
 
 const Blog = ({ blog,updateBlog,user,deleteBlog }) => {
   const blogStyle = {
